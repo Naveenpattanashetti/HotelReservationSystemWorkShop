@@ -1,31 +1,48 @@
 package com.bridgelabz.hotelreservationsystems;
 
-import static org.junit.Assert.*;
+import org.junit.Test;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
-
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+
 import org.junit.Test;
 
 public class HotelReservationTest {
 	@Test
-	public void addHotels() {
-		Hotel hotel = new Hotel("Lakewood", 3, 110, 90, 80, 80);
-		List<Hotel> hotelList = new ArrayList<Hotel>();
-		hotelList.add(hotel);
+	public void whenHotelAdded_ToSystem_ShouldGetAdded() {
+		Hotel hotel1 = new Hotel("Lakeewood", 110, 90, 80, 80, 3);
+		Hotel hotel2 = new Hotel("Bridgewood", 160, 60, 110, 50, 4);
+		Hotel hotel3 = new Hotel("Ridgewood", 220, 150, 100, 40, 5);
+		Hotel[] hotelList = { hotel1, hotel2, hotel3 };
+		List<Hotel> hotels = Arrays.asList(hotelList);
 		HotelReservation hotelReservation = new HotelReservation();
-		List<Hotel> listofhotel = hotelReservation.addHotel("Lakewood", 3, 110, 90, 80, 80);
+		hotelReservation.add(hotel1);
+		hotelReservation.add(hotel2);
+		hotelReservation.add(hotel3);
 		List<Hotel> result = hotelReservation.getHotelList();
-		assertEquals(listofhotel, result);
+		assertEquals(hotels, result);
 	}
 
 	@Test
-	public void addHotelsForNegtiverating() {
-		Hotel hotel = new Hotel("Lakewood", -3, 110, 90, 80, 80);
-		List<Hotel> hotelList = new ArrayList<Hotel>();
-		hotelList.add(hotel);
+	public void whenGivenDateRangeShouldReturnCheapestHotel() {
+		Hotel hotel1 = new Hotel("Lakewood", 110, 90, 80, 80, 3);
+		Hotel hotel2 = new Hotel("Bridgewood", 160, 60, 110, 50, 4);
+		Hotel hotel3 = new Hotel("Ridgewood", 220, 150, 100, 40, 5);
 		HotelReservation hotelReservation = new HotelReservation();
-		List<Hotel> result = hotelReservation.getHotelList();
-		assertNotEquals(null, result);
+		hotelReservation.add(hotel1);
+		hotelReservation.add(hotel2);
+		hotelReservation.add(hotel3);
+		Map<Integer, Hotel> result = hotelReservation.searchFor("10Sep2020", "11Sep2020");
+		result.forEach((k, v) -> System.out.println(v.getName() + " " + k));
+		assertNotNull(result);
 	}
 }
