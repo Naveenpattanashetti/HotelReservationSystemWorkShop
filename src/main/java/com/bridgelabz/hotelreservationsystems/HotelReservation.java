@@ -77,5 +77,4 @@ public class HotelReservation {
 		LocalDate localDate = LocalDate.parse(date, formatter);
 		return localDate;
 	}
-
 }
